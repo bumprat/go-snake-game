@@ -1,2 +1,2 @@
-# go-snake-game
+# go-snakes-game
 sample project for learning GO
