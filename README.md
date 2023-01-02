@@ -1,8 +1,8 @@
 # go-snakes-game
 
-sample project for learning GO
+Sample Project for Learning GO
 
-## Install
+## Installation
 
 1. [install go](https://go.dev/dl/) first
 
@@ -17,7 +17,7 @@ $ go run .
 
 ## Controls
 
-use `arrow keys` to change move direction
+use `arrow keys` to change direction
 
 `esc` to end game
 
