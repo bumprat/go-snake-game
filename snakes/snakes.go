@@ -36,12 +36,13 @@ type cell struct {
 }
 
 type stageType struct {
-	environment    []cell
-	width          byte
-	height         byte
-	snake          []cell
-	snakeDirection direction
-	snakeStepTime  int
+	environment        []cell
+	width              byte
+	height             byte
+	snake              []cell
+	snakeDirection     direction
+	snakeNextDirection direction
+	snakeStepTime      int
 }
 
 var stage stageType
@@ -60,6 +61,7 @@ func Init(width byte, height byte) (err error) {
 		width,
 		height,
 		[]cell{{1, 1, snakeHead}},
+		right,
 		right,
 		50,
 	}
@@ -131,6 +133,7 @@ func Start() {
 
 func step() {
 	var moveTo cell = stage.snake[0]
+	stage.snakeDirection = stage.snakeNextDirection
 	switch stage.snakeDirection {
 	case up:
 		moveTo.y -= 1
@@ -234,13 +237,13 @@ func keyboardListener() {
 		}
 		switch {
 		case key == 0xFFED && stage.snakeDirection != down:
-			stage.snakeDirection = up
+			stage.snakeNextDirection = up
 		case key == 0xFFEC && stage.snakeDirection != up:
-			stage.snakeDirection = down
+			stage.snakeNextDirection = down
 		case key == 0xFFEB && stage.snakeDirection != right:
-			stage.snakeDirection = left
+			stage.snakeNextDirection = left
 		case key == 0xFFEA && stage.snakeDirection != left:
-			stage.snakeDirection = right
+			stage.snakeNextDirection = right
 		}
 		if key == keyboard.KeyEsc {
 			gameover = true
