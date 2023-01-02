@@ -9,8 +9,9 @@ Sample Project for Learning GO
 2. clone and run
 
 ```bash
-$ git clone https://github.com/bumprat/go-snakes-game.git
-$ go run .
+git clone https://github.com/bumprat/go-snakes-game.git
+cd ./go-snakes-game
+go run .
 ```
 
 ![Game Preview](./preview.jpg)

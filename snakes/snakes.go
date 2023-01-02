@@ -12,7 +12,7 @@ import (
 type matter string
 
 const (
-	food      matter = "🍲"
+	food      matter = "🍎"
 	wall      matter = "🧱"
 	vacant    matter = "⬛"
 	snake     matter = "🟢"
