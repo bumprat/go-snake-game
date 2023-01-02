@@ -68,8 +68,13 @@ func Init(width byte, height byte) (err error) {
 
 func render() {
 	var i, j byte
-	result := ""
+	var result string
+	for i = 1; i <= stage.width; i++ {
+		result += string(wall)
+	}
+	result += string(wall+wall) + "\n"
 	for j = 1; j <= stage.height; j++ {
+		result += string(wall)
 	nextCell:
 		for i = 1; i <= stage.width; i++ {
 			for _, cell := range stage.environment {
@@ -86,8 +91,12 @@ func render() {
 			}
 			result += string(vacant)
 		}
-		result += "\n"
+		result += string(wall) + "\n"
 	}
+	for i = 1; i <= stage.width; i++ {
+		result += string(wall)
+	}
+	result += string(wall+wall) + "\n"
 	fmt.Print("\033[H\033[2J")
 	fmt.Print(result)
 }
