@@ -20,13 +20,13 @@ const (
 	snakeHead matter = "🤢"
 )
 
-type direction byte
+type direction string
 
 const (
-	up    direction = iota
-	down  direction = iota
-	left  direction = iota
-	right direction = iota
+	up    direction = "⬆️"
+	down  direction = "⬇️"
+	left  direction = "⬅️"
+	right direction = "➡️"
 )
 
 type cell struct {
@@ -43,6 +43,7 @@ type stageType struct {
 	snakeDirection     direction
 	snakeNextDirection direction
 	snakeStepTime      int
+	score              int
 }
 
 var stage stageType
@@ -64,6 +65,7 @@ func Init(width byte, height byte) (err error) {
 		right,
 		right,
 		50,
+		0,
 	}
 	return
 }
@@ -99,6 +101,11 @@ func render() {
 		result += string(wall)
 	}
 	result += string(wall+wall) + "\n"
+	result += fmt.Sprintf(
+		"Score: %d, next move: %s\n",
+		stage.score,
+		stage.snakeNextDirection,
+	)
 	fmt.Print("\033[H")
 	fmt.Print(result)
 }
@@ -166,6 +173,7 @@ func step() {
 				stage.snake[0].matter = snake
 				stage.snake = append([]cell{moveTo}, stage.snake...)
 				stage.environment = append(stage.environment[:i], stage.environment[i+1:]...)
+				stage.score += 100
 				genRandomFood()
 				render()
 				return
@@ -245,6 +253,7 @@ func keyboardListener() {
 		case key == 0xFFEA && stage.snakeDirection != left:
 			stage.snakeNextDirection = right
 		}
+		render()
 		if key == keyboard.KeyEsc {
 			gameover = true
 			break
