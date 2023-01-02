@@ -13,6 +13,8 @@ $ git clone https://github.com/bumprat/go-snakes-game.git
 $ go run .
 ```
 
+![Game Preview](./preview.jpg)
+
 ## Controls
 
 use `arrow keys` to change move direction

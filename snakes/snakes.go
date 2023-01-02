@@ -16,7 +16,7 @@ const (
 	wall      matter = "🧱"
 	vacant    matter = "⬛"
 	snake     matter = "🟢"
-	wreck     matter = "❌️"
+	wreck     matter = "😱"
 	snakeHead matter = "🤢"
 )
 
@@ -46,11 +46,11 @@ type stageType struct {
 
 var stage stageType
 
-func NewDefault() (err error) {
-	return New(10, 10)
+func InitDefault() (err error) {
+	return Init(10, 10)
 }
 
-func New(width byte, height byte) (err error) {
+func Init(width byte, height byte) (err error) {
 	if width < 5 || height < 5 {
 		err = errors.New("width and height must be greater than 5")
 		return
@@ -95,6 +95,7 @@ func render() {
 var gameover = false
 
 func Start() {
+	rand.Seed(time.Now().UnixNano())
 	genRandomWall()
 	genRandomFood()
 	genRandomFood()
@@ -221,14 +222,14 @@ func keyboardListener() {
 		if err != nil {
 			panic(err)
 		}
-		switch key {
-		case 0xFFED:
+		switch {
+		case key == 0xFFED && stage.snakeDirection != down:
 			stage.snakeDirection = up
-		case 0xFFEC:
+		case key == 0xFFEC && stage.snakeDirection != up:
 			stage.snakeDirection = down
-		case 0xFFEB:
+		case key == 0xFFEB && stage.snakeDirection != right:
 			stage.snakeDirection = left
-		case 0xFFEA:
+		case key == 0xFFEA && stage.snakeDirection != left:
 			stage.snakeDirection = right
 		}
 		if key == keyboard.KeyEsc {
