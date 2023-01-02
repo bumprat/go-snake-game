@@ -97,7 +97,7 @@ func render() {
 		result += string(wall)
 	}
 	result += string(wall+wall) + "\n"
-	fmt.Print("\033[H\033[2J")
+	fmt.Print("\033[H")
 	fmt.Print(result)
 }
 
@@ -108,6 +108,7 @@ func Start() {
 	genRandomWall()
 	genRandomFood()
 	genRandomFood()
+	fmt.Print("\033[H\033[2J") // clear screen
 	render()
 	go keyboardListener()
 	ticker := time.NewTicker(time.Microsecond * 200)
